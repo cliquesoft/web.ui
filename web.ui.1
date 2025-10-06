@@ -1,0 +1,81 @@
+.\"Man page for web.ui, by Dave Henderson.
+.TH web.ui 1 "2017 Jan 18"
+.SH NAME
+\fIweb.ui\fR - web user interface
+
+
+.SH SYNOPSIS
+.B web.ui
+[-h(elp)]
+[-d(ownload)]
+[-g(eometry) WxH+X+Y]
+[-i(con) FILE]
+[-s(torage) DIR]
+[-t(itle) STRING]
+
+
+
+.SH DESCRIPTION
+.I web.ui
+is a minimalistic graphical software interface using webpages. Similar
+to Mozilla's Chromeless project (formerly Prism), this software enables
+an author to create web-based applications and services that look and
+fell like typical compiled software.
+
+
+.SH SWITCHES
+As a way to provide additional functionality, web.ui can also accept
+several command line switches. An expanded description of each will
+be covered below.
+
+.B -h[elp]
+Shows the help screen and exits the program.
+
+.B -d[ownload]
+By default web.ui does not permit downloading since its main goal
+is to act as a local user interface. However, there may be times or
+situations where downloading will be required. Passing this option
+will enable downloads.
+
+.B -g[eometry] WxH+X+Y
+When this option has been passed, web.ui will start with the window
+at the size specified (W,H values) and optionally at the offset
+specified by the coordinates (X,Y values) from the upper left-hand
+corner of the screen.
+
+.B -i[con]
+Use this parameter to set the window icon for the application or
+service to its following value.
+
+.B -s[torage]
+As a way to help keep data separated from one application to another,
+this option will allow you to provide a unique storage directory for
+each of them.
+
+.B -t[itle]
+Similar to the icon switch above, this one will specify the title of
+the window to its following value.
+
+
+.SH BUGS
+
+Please visit our website for the latest list of opened bug reports for
+this software project - http://www.cliquesoft.org.
+
+
+.SH COPYRIGHT
+
+Copyright (C) 2015 Cliquesoft
+
+This program is free software and is distributed using the Cliquesoft
+Public License (CPLv2).
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+
+.SH AUTHORS
+
+Dave Henderson
