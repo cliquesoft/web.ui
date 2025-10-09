@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Created	2017/01/18 by Dave Henderson (support@cliquesoft.org)
+# Updated	2025/10/09 by Dave Henderson (support@cliquesoft.org)
 
 # set compile flags: 32-bit
 #export CFLAGS="-march=i486 -mtune=i686 -Os -pipe"
@@ -48,10 +51,27 @@ if (( $INSTALL > 0 )) && (( $EUID > 0 )); then		# checks that this ACTION is bei
 fi
 
 # check that the required packages are installed to compile the software
-tce-load -wi webkitfltk-dev.tcz fltk-1.3-dev.tcz webkit-dev.tcz glib2-dev.tcz
-
-# define the required packages for this software to run
-DEP="fltk-1.3.tcz\nsqlite3.tcz\nlibEGL.tcz\nlibGLESv2"
+if [ "$(cat /etc/os-release | grep TinyCore)" != '' ]; then
+	tce-load -wi webkitfltk-dev.tcz fltk-1.3-dev.tcz webkit-dev.tcz glib2-dev.tcz
+elif [ "$(cat /etc/os-release | grep XiniX)" != '' ]; then
+	pax -i webkitfltk-dev fltk-1.3-dev webkit-dev glib2-dev
+else
+	echo "You will need to install the following packages to proceed:"
+	echo "   fltk-1.3-dev"
+	echo "   webkitfltk-dev"
+	echo "   webkit-dev"
+	echo "   glib2-dev"
+	echo
+	echo -n "Have these already been installed? [Y/N] (Y): "
+	read -n 1
+	[ "$REPLY" == '' ] && REPLY='Y'
+	if [ "${REPLY,}" != 'y' ]; then
+		echo
+		echo "Please re-run this script after those packages have been installed."
+		echo
+		exit 1
+	fi
+fi
 
 
 # compile the software
@@ -89,10 +109,16 @@ echo -e "\nYou are now ready to use the software!\n"
 
 
 
+# REMOVED 2025/10/09 - this is outside the scope of this script
+# the below steps need to be taken by a package maintainer and are not suitable for this script
+
+# define the required packages for this software to run
+#DEP="fltk-1.3.tcz\nsqlite3.tcz\nlibEGL.tcz\nlibGLESv2"
+
 # creating the .tcz files
-cd /tmp 
-mksquashfs "$1" "$1.tcz"
-md5sum "$1.tcz" > "$1.tcz.md5.txt"		# create the md5 checksum file
-echo -e $DEP > "$1.tcz.dep"			# create the dependency file
-cd "/tmp/$1"
-find usr -not -type d > "../$1.tcz.list"	# create the manifest
+#cd /tmp 
+#mksquashfs "$1" "$1.tcz"
+#md5sum "$1.tcz" > "$1.tcz.md5.txt"		# create the md5 checksum file
+#echo -e $DEP > "$1.tcz.dep"			# create the dependency file
+#cd "/tmp/$1"
+#find usr -not -type d > "../$1.tcz.list"	# create the manifest
